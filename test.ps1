@@ -200,8 +200,9 @@ $runLogs = Join-Path $root 'combined-logs'
 Assert-Equal 'multi-source verified exit' $LASTEXITCODE 0
 $combinedLog = Get-ChildItem $runLogs -Filter 'bunshin-*.log' | Select-Object -First 1
 $text = Get-Content $combinedLog.FullName -Raw
-Assert-True 'first source retained' ($text.Contains($src))
-Assert-True 'second source retained' ($text.Contains($second))
+# Robocopy expands 8.3 aliases (including the hosted runner's TEMP path).
+Assert-True 'first source retained' ($text.Contains((Get-Item -LiteralPath $src).FullName))
+Assert-True 'second source retained' ($text.Contains((Get-Item -LiteralPath $second).FullName))
 Assert-True 'verification verdict retained' ($text -match 'all files verified')
 # With unchanged size/mtime, plain copy must still skip hashing by default.
 $singleDest = Join-Path $root 'file-dest\a.txt'

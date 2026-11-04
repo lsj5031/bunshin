@@ -12,6 +12,11 @@ the QA runner. No manual feature-sheet edits were made by this CLI task. S01 and
 S02 now have sandbox installation evidence. The interactive folder picker and
 Explorer selection flow (S03) remain unautomated.
 
+The first GitHub CI run exposed two log assertions comparing an 8.3 TEMP alias
+against robocopy's expanded source paths. Both sources were present in the log.
+Reproduced locally with a real short-path TEMP directory, then corrected the
+expected paths using filesystem-expanded names. No CLI behavior changed.
+
 ## Changes and CLI contract
 
 - Renamed `vcopy.ps1` to `bunshin.ps1` and `SendTo-VerifiedCopy.ps1` to
