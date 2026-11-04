@@ -7,7 +7,7 @@ and folders in the desktop app, choose a destination, and see a verdict for
 each file. The command-line tool also lets you check an existing copy without
 copying it again.
 
-This is unsigned **0.1.0-preview.3**. Local disk workflows are tested; network
+This is unsigned **0.1.0**. Local disk workflows are tested; network
 shares and unusual filesystem configurations still need broader testing.
 
 ## Start here
@@ -18,7 +18,7 @@ are required for the portable build. Windows may show a warning for the
 unsigned executable; verify the download's SHA-256 against its `.sha256` file.
 
 ```powershell
-Get-FileHash .\bunshin-0.1.0-preview.3-win-x64.zip -Algorithm SHA256
+Get-FileHash .\bunshin-0.1.0-win-x64.zip -Algorithm SHA256
 ```
 
 1. Drop files or folders into the queue, or use **Add files** / **Add folder**.

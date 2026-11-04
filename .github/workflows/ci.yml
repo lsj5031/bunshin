@@ -40,11 +40,25 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python spec/check_model.py --mutate
           exit $LASTEXITCODE
-      - name: Build portable preview
+      - name: Build portable release
         shell: pwsh
         run: ./Publish-Portable.ps1
+      - name: Verify release package metadata and checksum
+        shell: pwsh
+        run: |
+          $version = ([xml](Get-Content gui/Bunshin.Gui.csproj -Raw)).Project.PropertyGroup.Version
+          $path = "dist/bunshin-$version-win-x64.zip"
+          $expectedHash = ((Get-Content "$path.sha256") -split '\s+')[0]
+          if ((Get-FileHash $path).Hash -ne $expectedHash) { throw 'Package checksum mismatch.' }
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zip = [IO.Compression.ZipFile]::OpenRead((Resolve-Path $path))
+          try {
+            $reader = [IO.StreamReader]::new($zip.GetEntry('release.json').Open())
+            try { $manifest = $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
+            if ($manifest.version -ne $version) { throw "Package version $($manifest.version) does not match $version." }
+          } finally { $zip.Dispose() }
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: bunshin-win-x64-preview
+          name: bunshin-win-x64
           path: dist/*
           if-no-files-found: error

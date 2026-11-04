@@ -9,7 +9,7 @@
 [CmdletBinding()]
 param(
     [ValidatePattern('^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$')]
-    [string] $Version = '0.1.0-preview.3',
+    [string] $Version = '0.1.0',
     [string] $OutputDirectory
 )
 
@@ -62,12 +62,12 @@ try {
     $runtimePackages = $assets.project.frameworks.PSObject.Properties.Value.downloadDependencies |
         Where-Object { $_.name -in @('Microsoft.NETCore.App.Runtime.win-x64', 'Microsoft.WindowsDesktop.App.Runtime.win-x64') }
     foreach ($package in $runtimePackages) {
-        $version = $package.version.Trim('[', ']').Split(',')[0].Trim()
-        $relativePath = Join-Path $package.name.ToLowerInvariant() $version
+        $runtimeVersion = $package.version.Trim('[', ']').Split(',')[0].Trim()
+        $relativePath = Join-Path $package.name.ToLowerInvariant() $runtimeVersion
         $packagePath = $assets.packageFolders.PSObject.Properties.Name |
             ForEach-Object { Join-Path $_ $relativePath } |
             Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
-        if (!$packagePath) { throw "Runtime notices not found for $($package.name) $version" }
+        if (!$packagePath) { throw "Runtime notices not found for $($package.name) $runtimeVersion" }
         $noticeDirectory = Join-Path $stage "ThirdPartyNotices\$($package.name)"
         New-Item -ItemType Directory -Path $noticeDirectory -Force | Out-Null
         Get-ChildItem -LiteralPath $packagePath -File |

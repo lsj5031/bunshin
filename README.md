@@ -23,15 +23,14 @@ This edited tour uses actual Bunshin screenshots; the timing does not represent 
 
 **Windows x64 · portable · no administrator access required**
 
-1. Download the portable ZIP from [GitHub Actions](https://github.com/lsj5031/bunshin/actions/workflows/ci.yml):
-   open a successful **Verify Bunshin** run and download **bunshin-win-x64-preview**
-   under **Artifacts**. You must be signed in and have access to this repository.
-2. Extract the artifact, then extract the `bunshin-…-win-x64.zip` inside it.
+1. Download **[bunshin-0.1.0-win-x64.zip](https://github.com/lsj5031/bunshin/releases/download/v0.1.0/bunshin-0.1.0-win-x64.zip)**
+   from the **[v0.1.0 release](https://github.com/lsj5031/bunshin/releases/tag/v0.1.0)**.
+2. Extract the ZIP into a folder.
 3. Open **Bunshin.exe**. The portable build includes its runtime.
 4. Add files or folders, choose a destination, and review the target shown for each source.
 5. Select **Copy and verify**, then wait for the final verdict.
 
-> **Preview software:** the current version is **0.1.0-preview.3** and is unsigned.
+> **Unsigned build:** the current version is **0.1.0**.
 > Windows may warn before opening it. Compare the ZIP's SHA-256 with the included
 > `.sha256` file. Local disk workflows have been tested; network shares need broader testing.
 

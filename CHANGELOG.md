@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0 — 2026-11-05
+
+- First public release, with the versioned Windows x64 portable ZIP and SHA-256 checksum.
+- Includes the branded desktop app, copy/verify/mirror modes, CLI and optional Send To shortcut.
+- Consistent thin app-window framing in the product tour and README animation.
+- Release manifest now preserves the Bunshin version when bundling .NET runtime notices.
+
 ## 0.1.0-preview.3 — 2026-11-05
 
 - Integrated branded header replaces the standard Windows title bar while
@@ -36,5 +43,4 @@ First Bunshin preview, evolved from the local `vcopy` prototype.
 - Safety hardening and regression coverage for copy and mirror operations.
 - Desktop confirmation and cancellation improvements.
 
-This preview is unsigned and not yet published. See `HANDOFF.md` for executed
-checks and remaining release gaps.
+Builds are unsigned. See `qa/GUI-RESULTS.md` for executed checks and coverage limits.

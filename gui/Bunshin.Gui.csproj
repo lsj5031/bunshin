@@ -11,7 +11,7 @@
     <Product>Bunshin</Product>
     <Title>Bunshin</Title>
     <Description>Windows copy with SHA-256 verification</Description>
-    <Version>0.1.0-preview.3</Version>
+    <Version>0.1.0</Version>
     <ApplicationIcon>Branding\bunshin.ico</ApplicationIcon>
   </PropertyGroup>
 
