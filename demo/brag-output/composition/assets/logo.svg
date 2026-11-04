@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <title>Bunshin — twin sheets</title>
+  <g stroke="#315CE1" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 82H28Q20 82 20 74V28Q20 20 28 20H74Q82 20 82 28V32"/>
+    <rect x="46" y="46" width="62" height="62" rx="12"/>
+  </g>
+</svg>

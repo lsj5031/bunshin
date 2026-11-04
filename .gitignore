@@ -1,0 +1,19 @@
+**/bin/
+**/obj/
+**/__pycache__/
+**/node_modules/
+**/.hyperframes/
+/dist/
+*.user
+*.suo
+# Local historical captures include developer paths; current public media is in docs/images.
+/demo/*.cast
+/demo/gui-*.png
+/demo/dashboard.png
+/demo/brag-output/check.json
+/demo/brag-output/render.log
+/demo/brag-output/composition/.thumbnails/
+/demo/brag-output/composition/.waveform-cache/
+# Machine-local handoff and original prototype report are retained locally.
+/HANDOFF.md
+/REPORT.md

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <script src="assets/gsap.min.js"></script>
+  <link rel="stylesheet" href="assets/film.css">
+  <style>html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#F8FAF9}#root{position:absolute;inset:0}.clip{position:absolute;inset:0}</style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="25" data-width="1920" data-height="1080" data-fps="30">
+    <div id="hook" class="clip" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    <div id="choose" class="clip" data-composition-id="choose" data-composition-src="compositions/choose.html" data-start="3" data-duration="5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    <div id="resolve" class="clip" data-composition-id="resolve" data-composition-src="compositions/resolve.html" data-start="8" data-duration="5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    <div id="check" class="clip" data-composition-id="check" data-composition-src="compositions/check.html" data-start="13" data-duration="5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    <div id="verdict" class="clip" data-composition-id="verdict" data-composition-src="compositions/verdict.html" data-start="18" data-duration="7" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    <audio id="music" src="assets/music/bed.mp3" data-start="0" data-duration="25" data-track-index="10" data-volume="0.20" data-fade-in="0.4" data-fade-out="1.5"></audio>
+    <audio id="choose-sound" src="assets/sfx/drop.ogg" data-start="3.1" data-duration="0.5" data-track-index="11" data-volume="0.30"></audio>
+    <audio id="resolve-sound" src="assets/sfx/drop.ogg" data-start="8.1" data-duration="0.5" data-track-index="11" data-volume="0.30"></audio>
+    <audio id="verdict-sound" src="assets/sfx/drop.ogg" data-start="18.1" data-duration="0.5" data-track-index="11" data-volume="0.30"></audio>
+  </div>
+  <script>window.__timelines=window.__timelines||{};window.__timelines.main=gsap.timeline({paused:true});</script>
+</body>
+</html>

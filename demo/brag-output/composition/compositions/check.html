@@ -1,0 +1,10 @@
+<template>
+  <style>#root{position:absolute;inset:0}</style>
+  <div id="root" class="scene" data-composition-id="check" data-width="1920" data-height="1080" data-hold>
+    <div class="brand"><img src="assets/logo.svg" alt="">Bunshin</div>
+    <div id="check-copy" class="copy"><p class="eyebrow">03 / VERIFY</p><h1>Copy first.<br>Then check.</h1><p class="body">SHA-256 compares contents.<br>Not just names and sizes.</p></div>
+    <div id="check-stage" class="stage"><img class="screen" src="assets/screens/verifying.png" alt="Actual Bunshin hashing phase"></div>
+    <p class="foot">COPY → VERIFY → RESULT</p>
+  </div>
+  <script>const tl=gsap.timeline({paused:true});tl.fromTo('#check-stage',{opacity:0.3},{opacity:1,duration:0.3,ease:'power1.out'},0);tl.fromTo('#check-copy',{y:20,opacity:0},{y:0,opacity:1,duration:0.5,ease:'expo.out'},0.1);window.__timelines.check=tl;</script>
+</template>

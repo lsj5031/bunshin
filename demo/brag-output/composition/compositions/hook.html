@@ -1,0 +1,9 @@
+<template>
+  <style>#root{position:absolute;inset:0}.hook-copy{position:absolute;left:192px;top:330px;width:1536px}.hook-title{font-size:122px;line-height:1.05;letter-spacing:-5px}.hook-mark{position:absolute;right:240px;top:690px;width:150px;height:150px}</style>
+  <div id="root" class="scene" data-composition-id="hook" data-width="1920" data-height="1080" data-hold>
+    <div class="brand"><img src="assets/logo.svg" alt="">Bunshin</div>
+    <div class="hook-copy"><h1 id="hook-title" class="hook-title">Copying finished.<br><span style="color:#315CEB">But did it match?</span></h1><p class="body">Copy. Verify. Be sure.</p></div>
+    <img id="hook-mark" class="hook-mark" src="assets/logo.svg" alt="Bunshin twin-sheet mark">
+  </div>
+  <script>const tl=gsap.timeline({paused:true});tl.fromTo('#hook-mark',{scale:0.88,opacity:0.4},{scale:1,opacity:1,duration:0.55,ease:'expo.out'},0);window.__timelines.hook=tl;</script>
+</template>

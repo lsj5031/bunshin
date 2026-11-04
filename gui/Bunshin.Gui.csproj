@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Bunshin</AssemblyName>
+    <RootNamespace>Bunshin.Gui</RootNamespace>
+    <Product>Bunshin</Product>
+    <Title>Bunshin</Title>
+    <Description>Windows copy with SHA-256 verification</Description>
+    <Version>0.1.0-preview.3</Version>
+    <ApplicationIcon>Branding\bunshin.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\*.ttf" />
+    <Resource Include="Branding\bunshin.ico" />
+  </ItemGroup>
+
+</Project>

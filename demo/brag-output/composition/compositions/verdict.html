@@ -1,0 +1,10 @@
+<template>
+  <style>#root{position:absolute;inset:0}</style>
+  <div id="root" class="scene" data-composition-id="verdict" data-width="1920" data-height="1080" data-hold>
+    <div class="brand"><img src="assets/logo.svg" alt="">Bunshin</div>
+    <div id="verdict-copy" class="copy"><p class="eyebrow">04 / BE SURE</p><h1 class="success">Your copy<br>is verified.</h1><p class="body">A clear verdict.<br>A record for every run.</p></div>
+    <div id="verdict-stage" class="stage"><img class="screen" src="assets/screens/verified.png" alt="Actual Bunshin verified copy result"></div>
+    <p id="verdict-signoff" class="foot">BUNSHIN / COPY. VERIFY. BE SURE.</p>
+  </div>
+  <script>const tl=gsap.timeline({paused:true});tl.fromTo('#verdict-stage',{scale:0.97,opacity:0.3},{scale:1,opacity:1,duration:0.55,ease:'expo.out'},0);tl.fromTo('#verdict-copy',{opacity:0},{opacity:1,duration:0.25,ease:'power1.out'},0.1);tl.fromTo('#verdict-signoff',{opacity:0},{opacity:1,duration:0.4,ease:'power1.out'},3);window.__timelines.verdict=tl;</script>
+</template>

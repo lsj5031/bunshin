@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bunshin - feature dashboard</title>
+<style>
+  :root {
+    --bg: #0f1216; --card: #161b22; --border: #242c36; --text: #e6e9ef; --dim: #8b95a3;
+    --green: #4ad98a; --red: #ff6b6b; --blue: #4f8cff; --violet: #c9a2ff; --amber: #f0b429;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 14px/1.45 "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif; }
+  header { padding: 28px 32px 10px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 24px; letter-spacing: -0.02em; }
+  .sub { color: var(--dim); font-size: 12px; }
+  main { padding: 12px 32px 48px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+  .stat .n { font-size: 26px; font-weight: 650; letter-spacing: -0.03em; }
+  .stat .l { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .bar { height: 8px; background: #12171d; border-radius: 99px; overflow: hidden; margin: 2px 0 22px;
+         border: 1px solid var(--border); }
+  .bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #4f8cff, #4ad98a);
+             transition: width 400ms ease; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { border: 1px solid var(--border); background: var(--card); color: var(--dim); border-radius: 99px;
+          padding: 5px 12px; font-size: 12px; cursor: pointer; user-select: none; }
+  .chip.on { color: var(--text); border-color: #3a4654; background: #1b222b; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+  thead th { position: sticky; top: 0; background: #12171d; color: var(--dim); text-align: left;
+             font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+             padding: 9px 10px; border-bottom: 1px solid var(--border); z-index: 1; }
+  tbody td { padding: 9px 10px; border-bottom: 1px solid #1b2129; vertical-align: top; }
+  tbody tr:hover { background: #141a21; }
+  .id { color: var(--dim); font-family: "Cascadia Mono", Consolas, monospace; font-size: 11.5px; white-space: nowrap; }
+  .feature { font-weight: 600; }
+  .story { color: var(--dim); font-size: 12px; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: 11px; font-weight: 600;
+          white-space: nowrap; }
+  .Verified { color: #06150d; background: var(--green); }
+  .Failed { color: #1a0505; background: var(--red); }
+  .Blocked { color: #1a1204; background: var(--amber); }
+  .Implemented { color: #dfe7f5; background: #2b3644; }
+  .Known\ limitation { color: #150a24; background: var(--violet); }
+  footer { color: var(--dim); font-size: 11px; padding: 0 32px 32px; }
+  .err { color: var(--red); font-size: 12px; margin: 8px 0 18px; }
+  .mono { font-family: "Cascadia Mono", Consolas, monospace; font-size: 11.5px; color: var(--dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Bunshin</h1>
+  <span class="sub">every feature, its user story, and what it is supposed to do</span>
+</header>
+
+<main>
+  <div class="stats">
+    <div class="stat"><div class="n" id="s-total">-</div><div class="l">Features</div></div>
+    <div class="stat"><div class="n" id="s-verified" style="color:var(--green)">-</div><div class="l">Verified</div></div>
+    <div class="stat"><div class="n" id="s-failed" style="color:var(--red)">-</div><div class="l">Failed</div></div>
+    <div class="stat"><div class="n" id="s-open">-</div><div class="l">Not yet verified</div></div>
+    <div class="stat"><div class="n" id="s-pct">-</div><div class="l">Coverage</div></div>
+  </div>
+
+  <div class="bar"><i id="bar"></i></div>
+  <div class="err" id="err" hidden></div>
+
+  <div class="chips" id="chips"></div>
+
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Feature</th><th>User story</th><th>Expected behaviour</th><th>Status</th><th>Evidence</th></tr>
+    </thead>
+    <tbody id="rows"><tr><td colspan="6" class="mono">loading features.csv...</td></tr></tbody>
+  </table>
+</main>
+
+<footer id="stamp">waiting for first refresh</footer>
+
+<script>
+const STATUSES = ["Verified", "Failed", "Implemented", "Blocked", "Known limitation"];
+let all = [], filter = null;
+
+function parseCsv(text) {
+  const rows = []; let row = [], field = "", quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (quoted) {
+      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (c === '"') quoted = false;
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ',') { row.push(field); field = ""; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
+    else if (c !== '\r') field += c;
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+}
+
+function render() {
+  const visible = filter ? all.filter(f => f.status === filter) : all;
+  document.getElementById("rows").innerHTML = visible.map(f => `
+    <tr>
+      <td class="id">${esc(f.id)}</td>
+      <td class="feature">${esc(f.feature)}<div class="story">${esc(f.area)}</div></td>
+      <td class="story">${esc(f.user_story)}</td>
+      <td class="story">${esc(f.expected_behavior)}</td>
+      <td><span class="pill ${esc(f.status).replace(/ /g, "\\ ")}">${esc(f.status)}</span></td>
+      <td class="mono">${esc(f.evidence)}</td>
+    </tr>`).join("") ||
+    `<tr><td colspan="6" class="mono">nothing matches this filter</td></tr>`;
+}
+
+function summarise() {
+  const count = s => all.filter(f => f.status === s).length;
+  const verified = count("Verified"), failed = count("Failed");
+  document.getElementById("s-total").textContent = all.length;
+  document.getElementById("s-verified").textContent = verified;
+  document.getElementById("s-failed").textContent = failed;
+  document.getElementById("s-open").textContent = all.length - verified - failed;
+  const pct = all.length ? Math.round((verified / all.length) * 100) : 0;
+  document.getElementById("s-pct").textContent = pct + "%";
+  document.getElementById("bar").style.width = pct + "%";
+}
+
+function chips() {
+  const box = document.getElementById("chips");
+  box.innerHTML = ["all", ...STATUSES]
+    .map(s => `<span class="chip ${((filter ?? "all") === s) ? "on" : ""}" data-s="${esc(s)}">${esc(s)}</span>`)
+    .join("");
+  box.querySelectorAll(".chip").forEach(el => el.addEventListener("click", () => {
+    filter = el.dataset.s === "all" ? null : el.dataset.s;
+    chips(); render();
+  }));
+}
+
+async function refresh() {
+  try {
+    const response = await fetch("../features.csv?t=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("HTTP " + response.status + " for ../features.csv");
+    const table = parseCsv(await response.text()).filter(r => r.length > 1);
+    const header = table.shift();
+    all = table.map(r => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ""])));
+    document.getElementById("err").hidden = true;
+    summarise(); chips(); render();
+    document.getElementById("stamp").textContent =
+      "features.csv - " + all.length + " rows - refreshed " + new Date().toLocaleTimeString() +
+      " (auto-refresh 1.5s)";
+  } catch (error) {
+    document.getElementById("err").hidden = false;
+    document.getElementById("err").textContent =
+      "Could not read ../features.csv (" + error.message + "). Serve the project root, not the file directly.";
+  }
+}
+
+refresh();
+setInterval(refresh, 1500);
+</script>
+</body>
+</html>

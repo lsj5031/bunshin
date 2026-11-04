@@ -1,0 +1,15 @@
+@font-face{font-family:Bricolage;src:url('fonts/BricolageGrotesque-SemiBold.ttf');font-weight:600}
+@font-face{font-family:Space;src:url('fonts/SpaceGrotesk-Regular.ttf');font-weight:400}
+@font-face{font-family:Plex;src:url('fonts/IBMPlexMono-Regular.ttf');font-weight:400}
+*{box-sizing:border-box}
+.scene{background:#F8FAF9;color:#202B32;font-family:Space,sans-serif}
+.brand{position:absolute;left:128px;top:100px;display:flex;align-items:center;gap:20px;font-family:Bricolage,sans-serif;font-size:48px;font-weight:600}
+.brand img{width:62px;height:62px}
+.copy{position:absolute;left:128px;top:326px;width:700px}
+.eyebrow{font-family:Plex,monospace;color:#315CEB;font-size:28px;margin:0 0 30px}
+h1{font-family:Bricolage,sans-serif;font-size:96px;line-height:1.03;letter-spacing:-4px;font-weight:600;margin:0 0 38px}
+.body{font-size:32px;line-height:1.4;color:#52615C;max-width:620px;margin:0}
+.stage{position:absolute;left:944px;top:140px;width:848px;height:800px;display:flex;align-items:center;justify-content:center}
+.screen{width:100%;height:100%;object-fit:contain}
+.foot{position:absolute;left:128px;bottom:102px;font-family:Plex,monospace;font-size:26px;color:#52615C}
+.success{color:#247451}

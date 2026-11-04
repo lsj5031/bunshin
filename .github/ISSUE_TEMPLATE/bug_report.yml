@@ -1,0 +1,23 @@
+name: Bug report
+description: Report a reproducible Bunshin problem using disposable files.
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Bunshin version, Windows version, operation mode, and local/removable/network storage.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Use disposable files. Redact private paths. Use SECURITY.md for vulnerabilities or data-loss exploits.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true

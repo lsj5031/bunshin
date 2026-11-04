@@ -1,0 +1,10 @@
+<template>
+  <style>#root{position:absolute;inset:0}</style>
+  <div id="root" class="scene" data-composition-id="choose" data-width="1920" data-height="1080" data-hold>
+    <div class="brand"><img src="assets/logo.svg" alt="">Bunshin</div>
+    <div id="choose-copy" class="copy"><p class="eyebrow">01 / CHOOSE</p><h1>Choose what<br>comes with you.</h1><p class="body">Files and folders.<br>One clear queue.</p></div>
+    <div id="choose-stage" class="stage"><img class="screen" src="assets/screens/ready.png" alt="Actual Bunshin ready screen"></div>
+    <p class="foot">WINDOWS · PORTABLE</p>
+  </div>
+  <script>const tl=gsap.timeline({paused:true});tl.fromTo('#choose-stage',{x:48,opacity:0},{x:0,opacity:1,duration:0.55,ease:'expo.out'},0);tl.fromTo('#choose-copy',{opacity:0},{opacity:1,duration:0.3,ease:'power1.out'},0.1);window.__timelines.choose=tl;</script>
+</template>

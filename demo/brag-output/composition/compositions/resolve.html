@@ -1,0 +1,10 @@
+<template>
+  <style>#root{position:absolute;inset:0}</style>
+  <div id="root" class="scene" data-composition-id="resolve" data-width="1920" data-height="1080" data-hold>
+    <div class="brand"><img src="assets/logo.svg" alt="">Bunshin</div>
+    <div id="resolve-copy" class="copy"><p class="eyebrow">02 / REVIEW</p><h1>Know where<br>it will land.</h1><p class="body">Review the resolved target<br>before you start.</p></div>
+    <div id="resolve-stage" class="stage"><img class="screen" src="assets/screens/queued.png" alt="Actual Bunshin queued source and resolved destination"></div>
+    <p class="foot">SOURCE → DESTINATION</p>
+  </div>
+  <script>const tl=gsap.timeline({paused:true});tl.fromTo('#resolve-stage',{y:20,opacity:0.3},{y:0,opacity:1,duration:0.4,ease:'power3.out'},0);tl.fromTo('#resolve-copy',{opacity:0},{opacity:1,duration:0.25,ease:'power1.out'},0.1);window.__timelines.resolve=tl;</script>
+</template>

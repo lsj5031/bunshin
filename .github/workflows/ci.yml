@@ -1,0 +1,50 @@
+name: Verify Bunshin
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.14'
+      - name: CLI integration (PowerShell 7)
+        shell: pwsh
+        run: ./test.ps1
+      - name: CLI integration (Windows PowerShell 5.1)
+        shell: powershell
+        run: ./test.ps1
+      - name: CLI stories
+        shell: pwsh
+        run: ./qa/Run-Stories.ps1
+      - name: Copy engine regression tests
+        run: dotnet run --project engine-tests --configuration Release
+      - name: Protocol model
+        shell: pwsh
+        run: |
+          python spec/check_model.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python spec/check_model.py --mutate
+          exit $LASTEXITCODE
+      - name: Build portable preview
+        shell: pwsh
+        run: ./Publish-Portable.ps1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: bunshin-win-x64-preview
+          path: dist/*
+          if-no-files-found: error
