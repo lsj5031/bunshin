@@ -10,6 +10,6 @@
 h1{font-family:Bricolage,sans-serif;font-size:96px;line-height:1.03;letter-spacing:-4px;font-weight:600;margin:0 0 38px}
 .body{font-size:32px;line-height:1.4;color:#52615C;max-width:620px;margin:0}
 .stage{position:absolute;left:944px;top:140px;width:848px;height:800px;display:flex;align-items:center;justify-content:center}
-.screen{width:100%;height:100%;object-fit:contain}
+.screen{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;border:2px solid #BDC8C3;border-radius:8px}
 .foot{position:absolute;left:128px;bottom:102px;font-family:Plex,monospace;font-size:26px;color:#52615C}
 .success{color:#247451}

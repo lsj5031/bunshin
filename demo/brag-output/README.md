@@ -4,6 +4,9 @@ An edited product tour made with [Brag](https://github.com/latent-spaces/brag)
 and [Hyperframes](https://github.com/heygen-com/hyperframes). It shows actual
 Bunshin windows using disposable sample files. It is not a screen recording
 or a transfer-speed benchmark. No narration or generated product UI.
+Screenshot capture padding is cropped away; native rounded corners use
+transparency. A shared thin gray border frames every app screenshot consistently
+against the video's light background.
 
 - `brag.mp4`: 25-second 1920×1080 H.264 video, 30 fps, with music and soft SFX.
 - `brag.jpg`: settled verification-result poster, also baked into frame zero.
