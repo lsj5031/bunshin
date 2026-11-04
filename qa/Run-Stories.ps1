@@ -243,6 +243,7 @@ Test-Story S01 'sandbox install: quoted bundle path and real shortcut command' {
     $bundle = Join-Path $WorkRoot 'portable bundle with spaces'
     $sandbox = Join-Path $WorkRoot 'sandbox SendTo with spaces'
     New-Item -ItemType Directory -Path $bundle -Force | Out-Null
+    $bundle = (Get-Item -LiteralPath $bundle).FullName # Match the installer's expanded PSScriptRoot.
     foreach ($name in 'Install-SendTo.ps1', 'SendTo-Bunshin.ps1', 'bunshin.ps1') {
         Copy-Item -LiteralPath (Join-Path $PSScriptRoot "..\$name") -Destination $bundle
     }

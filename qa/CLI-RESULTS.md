@@ -15,7 +15,9 @@ Explorer selection flow (S03) remain unautomated.
 The first GitHub CI run exposed two log assertions comparing an 8.3 TEMP alias
 against robocopy's expanded source paths. Both sources were present in the log.
 Reproduced locally with a real short-path TEMP directory, then corrected the
-expected paths using filesystem-expanded names. No CLI behavior changed.
+expected paths using filesystem-expanded names. The same alias assumption in
+the shortcut story was corrected to match the installer's expanded script root.
+No CLI or installer behavior changed.
 
 ## Changes and CLI contract
 
